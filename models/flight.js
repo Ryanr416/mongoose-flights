@@ -29,3 +29,12 @@ const flightSchema = new Schema({
 })
 
 module.exports = mongoose.model('flight', flightSchema)
+
+module.exports = {
+    getAll
+}
+
+function getAll() {
+    return flightSchema;
+  }
+  

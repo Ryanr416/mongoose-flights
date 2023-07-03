@@ -6,12 +6,13 @@ const FlightModel = require('../models/flight');
     index,
     new: newFlights,
     create
+    
 }
 
 function index(req, res) {
-  const flights = FlightModel.find({});
-  console.log(flights)
-  res.render('flights/index', {title: 'All Flights', flights:flights});
+ // const flights =  FlightModel.find({});
+ //  console.log(flights)
+  res.render('flights/index.ejs', {title: 'All Flights', flights: FlightModel.getAll()});
 }
 
 function newFlights(req, res) {
@@ -21,20 +22,12 @@ function newFlights(req, res) {
 }
 
 async function create(req, res) {
-  // convert nowShowing's checkbox of nothing or "on" to boolean
-  // req.body.nowShowing = !!req.body.nowShowing;
-  // remove any whitespace at start and end of cast
-  // req.body.cast = req.body.cast.trim();
-  // split cast into an array if it's not an empty string - using a regular expression as a separator
-  // if (req.body.cast) req.body.cast = req.body.cast.split(/\s*,\s*/);
-  // Remove empty properties so that defaults will be applied
-  for (let key in req.body) {
-    if (req.body[key] === '') delete req.body[key];
-  }
-  try {
 
+  console.log(req.body, "<_ contents of our form");
+ 
 
-    const flightsFromTheDatabase =  await FlightModel.create(req.body);// the await is waiting for the MovieModel to go to MongoDB ATLAS (our db) a
+FlightModel.create(req.body);
+    const flightsFromTheDatabase =  await FlightModel.create(req.body);// the await is waiting for the FlightModel to go to MongoDB ATLAS (our db) a
     //and put the contents form in the db, and come to the express server
 
     // if you want to see what you put in the database on your server
@@ -42,10 +35,11 @@ async function create(req, res) {
 
     // Always redirect after CUDing data
     // We'll refactor to redirect to the movies index after we implement it
-    res.redirect('/flights');  // Update this line
-  } catch (err) {
+    res.redirect('/flights');  
+  }// catch (err) {
     // Typically some sort of validation error
-    console.log(err);
-    res.render('flights/new', { errorMsg: err.message });
-  }
-}
+  // console.log(err);
+    //res.render('flights/new', { errorMsg: err.message });
+  //}
+  
+   
