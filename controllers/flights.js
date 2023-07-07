@@ -26,12 +26,12 @@ async function create(req, res) {
   console.log(req.body, "<_ contents of our form");
  
 
-FlightModel.create(req.body);
-    const flightsFromTheDatabase =  await FlightModel.create(req.body);// the await is waiting for the FlightModel to go to MongoDB ATLAS (our db) a
+
+    await FlightModel.create(req.body);// the await is waiting for the FlightModel to go to MongoDB ATLAS (our db) a
     //and put the contents form in the db, and come to the express server
 
     // if you want to see what you put in the database on your server
-    console.log(flightsFromTheDatabase)
+    
 
     // Always redirect after CUDing data
     // We'll refactor to redirect to the movies index after we implement it
